@@ -16,7 +16,7 @@ class AForm {
         AForm();
         AForm(const AForm &src);
         AForm(const std::string &name, int _sign_grade, int _exec_grade);
-        ~AForm();
+        virtual ~AForm();
 
         AForm &operator=(const AForm &src);
 
@@ -52,6 +52,15 @@ class AForm {
             public:
                 AlreadySignedException(const std::string & msg) throw();
                 virtual ~AlreadySignedException() throw();
+                virtual const char * what() const throw();
+        };
+
+        class NotSignedException : public std::exception {
+            private:
+                std::string _msg;
+            public:
+                NotSignedException(const std::string & msg) throw();
+                virtual ~NotSignedException() throw();
                 virtual const char * what() const throw();
         };
 };

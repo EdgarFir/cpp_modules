@@ -66,51 +66,6 @@ bool        AForm::getIsSigned() const {
     return _is_signed;
 }
 
-AForm::GradeTooHighException::GradeTooHighException(const std::string & msg) throw() {
-    _msg = msg;
-}
-
-AForm::GradeTooHighException::GradeTooHighException::~GradeTooHighException() throw() {}
-
-/**
- * @brief Overrides std::exception 'what' method.
- * 
- * @return Exception message.
- */
-const char * AForm::GradeTooHighException::GradeTooHighException::what() const throw() {
-    return _msg.c_str();
-}
-
-AForm::GradeTooLowException::GradeTooLowException(const std::string & msg) throw() {
-    _msg = msg;
-}
-
-AForm::GradeTooLowException::GradeTooLowException::~GradeTooLowException() throw() {}
-
-/**
- * @brief Overrides std::exception 'what' method.
- * 
- * @return Exception message.
- */
-const char * AForm::GradeTooLowException::GradeTooLowException::what() const throw() {
-    return _msg.c_str();
-}
-
-AForm::AlreadySignedException::AlreadySignedException(const std::string & msg) throw() {
-    _msg = msg;
-}
-
-AForm::AlreadySignedException::AlreadySignedException::~AlreadySignedException() throw() {}
-
-/**
- * @brief Overrides std::exception 'what' method.
- * 
- * @return Exception message.
- */
-const char * AForm::AlreadySignedException::AlreadySignedException::what() const throw() {
-    return _msg.c_str();
-}
-
 /**
  * @brief Ensure Bureaucrat grade is not lower than AForm sign grade,
  * else throw exception.
@@ -135,10 +90,70 @@ void        AForm::beSigned(const Bureaucrat &b) {
  */
 std::ostream &operator<<(std::ostream & os, const AForm & obj) {
     os << obj.getName() << ", "
-       << "signed: " << obj.getSignGrade()
+       << "signed: " << obj.getIsSigned()
        << ", sign grade: " << obj.getSignGrade()
        << ", exec grade: " << obj.getExecGrade()
        << std::endl;
 
     return os;
+}
+
+AForm::GradeTooHighException::GradeTooHighException(const std::string & msg) throw() {
+    _msg = msg;
+}
+
+AForm::GradeTooHighException::~GradeTooHighException() throw() {}
+
+/**
+ * @brief Overrides std::exception 'what' method.
+ * 
+ * @return Exception message.
+ */
+const char * AForm::GradeTooHighException::what() const throw() {
+    return _msg.c_str();
+}
+
+AForm::GradeTooLowException::GradeTooLowException(const std::string & msg) throw() {
+    _msg = msg;
+}
+
+AForm::GradeTooLowException::~GradeTooLowException() throw() {}
+
+/**
+ * @brief Overrides std::exception 'what' method.
+ * 
+ * @return Exception message.
+ */
+const char * AForm::GradeTooLowException::what() const throw() {
+    return _msg.c_str();
+}
+
+AForm::AlreadySignedException::AlreadySignedException(const std::string & msg) throw() {
+    _msg = msg;
+}
+
+AForm::AlreadySignedException::~AlreadySignedException() throw() {}
+
+/**
+ * @brief Overrides std::exception 'what' method.
+ * 
+ * @return Exception message.
+ */
+const char * AForm::AlreadySignedException::what() const throw() {
+    return _msg.c_str();
+}
+
+AForm::NotSignedException::NotSignedException(const std::string & msg) throw() {
+    _msg = msg;
+}
+
+AForm::NotSignedException::~NotSignedException() throw() {}
+
+/**
+ * @brief Overrides std::exception 'what' method.
+ * 
+ * @return Exception message.
+ */
+const char * AForm::NotSignedException::what() const throw() {
+    return _msg.c_str();
 }
