@@ -21,6 +21,7 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm & 
 /**
  * @brief Try to execute Form. If Form not signed or
  * Bureaucrat grade lower than Form exec grade, throw Exception.
+ * 
  * @param executor Bureaucrat that will execute form. 
 */
 void        RobotomyRequestForm::execute(Bureaucrat const & executor) const {
@@ -31,3 +32,15 @@ void        RobotomyRequestForm::execute(Bureaucrat const & executor) const {
     std::cout << "Making some drilling noises....\n";
     std::cout << _target << " has been robotomized successfully 50% of the time\n";
 }
+
+/**
+ * @brief Create a new allocated Robotomy form.
+ * 
+ * @param target Name of the target.
+ * 
+ * @returns new RobotomyRequestForm initialized with target.
+*/
+AForm       *RobotomyRequestForm::createRobotomy(const std::string & target) {
+    return new RobotomyRequestForm(target);
+}
+

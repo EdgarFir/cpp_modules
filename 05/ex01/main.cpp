@@ -38,28 +38,18 @@ int main () {
 	Bureaucrat b("Bureaucrat 1", 10);
 	std::cout << b;
 
-	try {
-		b.signForm(f);
-	}
-	catch (std::exception &e) {
-		std::cout << e.what();
-	}
+	b.signForm(f);
+
+	// try {
+	// 	b.signForm(f);
+	// }
+	// catch (std::exception &e) {
+	// 	std::cout << e.what();
+	// }
 
 	b.upGrade(9);
- 
-	try {
-		b.signForm(f);
-	}
-	catch (std::exception &e) {
-		std::cout << e.what();
-	}
-
-	try {
-		b.signForm(f);
-	}
-	catch (std::exception &e) {
-		std::cout << e.what();
-	}
-
+	std::cout << b;
+	b.signForm(f);
+	b.signForm(f);
 	return 0;
 }
