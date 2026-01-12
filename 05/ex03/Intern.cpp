@@ -18,7 +18,7 @@ Intern &Intern::operator=(const Intern & src) {
  * @param name Name of form type.
  * @param target Target to initialize form.
  * 
- * @return Returns new Form if name is valid, else NULL.
+ * @return New Form if name is valid, else NULL.
  */
 AForm *Intern::makeForm(const std::string & name, const std::string & target) {
     AForm *form = NULL;
