@@ -1,0 +1,382 @@
+==== Testing invalid input ====
+input: 
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: .f
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: invalid
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: 123abc
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: 3.ff
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: infff
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: nannn
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: ++inff
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: --inf
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+input: nnan
+char: impossible
+int: impossible
+float: impossible
+double: impossible
+
+==== Testing valid char ====
+input: a
+char: 'a'
+int: 97
+float: 97.0f
+double: 97.0
+
+input: ?
+char: '?'
+int: 63
+float: 63.0f
+double: 63.0
+
+input: 42
+char: '*'
+int: 42
+float: 42.0f
+double: 42.0
+
+input: 126
+char: '~'
+int: 126
+float: 126.0f
+double: 126.0
+
+input: ,
+char: ','
+int: 44
+float: 44.0f
+double: 44.0
+
+==== Testing non displayble char ====
+input: 0
+char: Non displayable
+int: 0
+float: 0.0f
+double: 0.0
+
+input: 1
+char: Non displayable
+int: 1
+float: 1.0f
+double: 1.0
+
+input: 2
+char: Non displayable
+int: 2
+float: 2.0f
+double: 2.0
+
+input: 3
+char: Non displayable
+int: 3
+float: 3.0f
+double: 3.0
+
+input: 4
+char: Non displayable
+int: 4
+float: 4.0f
+double: 4.0
+
+input: 5
+char: Non displayable
+int: 5
+float: 5.0f
+double: 5.0
+
+input: 6
+char: Non displayable
+int: 6
+float: 6.0f
+double: 6.0
+
+input: 7
+char: Non displayable
+int: 7
+float: 7.0f
+double: 7.0
+
+input: 8
+char: Non displayable
+int: 8
+float: 8.0f
+double: 8.0
+
+input: 9
+char: Non displayable
+int: 9
+float: 9.0f
+double: 9.0
+
+input: 10
+char: Non displayable
+int: 10
+float: 10.0f
+double: 10.0
+
+input: 11
+char: Non displayable
+int: 11
+float: 11.0f
+double: 11.0
+
+input: 12
+char: Non displayable
+int: 12
+float: 12.0f
+double: 12.0
+
+input: 13
+char: Non displayable
+int: 13
+float: 13.0f
+double: 13.0
+
+input: 14
+char: Non displayable
+int: 14
+float: 14.0f
+double: 14.0
+
+input: 15
+char: Non displayable
+int: 15
+float: 15.0f
+double: 15.0
+
+input: 16
+char: Non displayable
+int: 16
+float: 16.0f
+double: 16.0
+
+input: 17
+char: Non displayable
+int: 17
+float: 17.0f
+double: 17.0
+
+input: 18
+char: Non displayable
+int: 18
+float: 18.0f
+double: 18.0
+
+input: 19
+char: Non displayable
+int: 19
+float: 19.0f
+double: 19.0
+
+input: 20
+char: Non displayable
+int: 20
+float: 20.0f
+double: 20.0
+
+input: 21
+char: Non displayable
+int: 21
+float: 21.0f
+double: 21.0
+
+input: 22
+char: Non displayable
+int: 22
+float: 22.0f
+double: 22.0
+
+input: 23
+char: Non displayable
+int: 23
+float: 23.0f
+double: 23.0
+
+input: 24
+char: Non displayable
+int: 24
+float: 24.0f
+double: 24.0
+
+input: 25
+char: Non displayable
+int: 25
+float: 25.0f
+double: 25.0
+
+input: 26
+char: Non displayable
+int: 26
+float: 26.0f
+double: 26.0
+
+input: 27
+char: Non displayable
+int: 27
+float: 27.0f
+double: 27.0
+
+input: 28
+char: Non displayable
+int: 28
+float: 28.0f
+double: 28.0
+
+input: 29
+char: Non displayable
+int: 29
+float: 29.0f
+double: 29.0
+
+input: 30
+char: Non displayable
+int: 30
+float: 30.0f
+double: 30.0
+
+input: 31
+char: Non displayable
+int: 31
+float: 31.0f
+double: 31.0
+
+input: 32
+char: ' '
+int: 32
+float: 32.0f
+double: 32.0
+
+input: 127
+char: Non displayable
+int: 127
+float: 127.0f
+double: 127.0
+
+==== Testing float, double ====
+input: 1.79769e+308
+char: impossible
+int: impossible
+float: inff
+double: 179769000000000006323030492138942643493033036433685336215410983289126434148906289940615299632196609445533816320312774433484859900046491141051651091672734470972759941382582304802812882753059262973637182942535982636884444611376868582636745405553206881859340916340092953230149901406738427651121855107737424232448.0
+
+input: 3.40282e+38
+char: impossible
+int: impossible
+float: 340282001837565597733306976381245063168.0f
+double: 340282000000000014192072600942972764160.0
+
+input: -999999999999999999999999999999999999999999999.9999
+char: impossible
+int: impossible
+float: -inff
+double: -999999999999999929757289024535551219930759168.0
+
+input: 42.0
+char: '*'
+int: 42
+float: 42.0f
+double: 42.0
+
+input: -42.0f
+char: impossible
+int: -42
+float: -42.0f
+double: -42.0
+
+input: 3.f
+char: Non displayable
+int: 3
+float: 3.0f
+double: 3.0
+
+input: 3.14
+char: Non displayable
+int: 3
+float: 3.1f
+double: 3.1
+
+input: 99999999999999999999999999999999999999999999999.9999
+char: impossible
+int: impossible
+float: inff
+double: 100000000000000004384584304507619735463404765184.0
+
+input: +inff
+char: impossible
+int: impossible
+float: inff
+double: inf
+
+input: inff
+char: impossible
+int: impossible
+float: inff
+double: inf
+
+input: -inff
+char: impossible
+int: impossible
+float: -inff
+double: -inf
+
+input: -inf
+char: impossible
+int: impossible
+float: -inff
+double: -inf
+
+input: nan
+char: impossible
+int: impossible
+float: nanf
+double: nan
+
+input: nanf
+char: impossible
+int: impossible
+float: nanf
+double: nan
+
