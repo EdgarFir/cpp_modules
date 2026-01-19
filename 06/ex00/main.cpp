@@ -20,8 +20,7 @@ std::string intToString(int num) {
 	return ss.str();
 }
 
-int main() {
-
+void myTests() {
 	{
 		std::cout << "==== Testing invalid input ====\n";
 		test("");
@@ -72,4 +71,13 @@ int main() {
 		test("nan");
 		test("nanf");
 	}
+}
+
+int main(int argc, char **argv) {
+	if (argc == 2) {
+		ScalarConverter::convert(argv[1]);
+		return 0;
+	}
+	std::cerr << "Usage: ./ScaleConverter <literal>\n";
+	return 1;
 }
