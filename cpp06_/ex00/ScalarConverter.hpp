@@ -4,13 +4,13 @@
 
 #include <iostream>
 
-typedef enum literal_type {
+typedef enum literal_type_e {
         PSEUDO_LITERAL,
         CHAR,
         INT,
         FLOAT,
         DOUBLE
-    };
+    } literal_type;
 
 class ScalarConverter {
     private:

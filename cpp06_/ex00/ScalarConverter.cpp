@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <limits>
 #include <cmath>
+#include <cctype>
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter & src) { static_cast<void>(src); }
@@ -24,7 +25,7 @@ static int getLiteralType(const std::string & literal) {
 	size_t	limit;
 	
 	if (literal.empty())
-		return 0;
+		return -1;
 	
 	// Check if is pseudo literal
 	if (isPseudoLiteral(literal))
@@ -42,11 +43,11 @@ static int getLiteralType(const std::string & literal) {
 			continue;
 		if (literal[i] == '.') {
 			if (i == 0 || i == limit - 1 || hasPoint)
-				return 0;
+				return -1;
 			hasPoint = true;
 		}
 		else if (!std::isdigit(literal[i]))
-			return 0;
+			return -1;
 	}
 
 	if (hasF && hasPoint)
@@ -58,35 +59,88 @@ static int getLiteralType(const std::string & literal) {
 	if (!hasPoint && !hasF)
 		return INT;
 	
-	return 0;
+	return -1;
 }
 
 static bool isNan(double n) {
 	return (n != n);
 }
 
-static void printChar(double literal_conversion, int literalType) {
-	// TODO
+static bool isAscii(double c) {
+	return (c >= 0 && c <= 127);
 }
 
-static void printInt(double literal_conversion, int literalType) {
-	// TODO
+template <typename Type, typename MinBoundType, typename MaxBoundType>
+static bool isOutOfBounds(Type n, MinBoundType minBound, MaxBoundType maxBound) {
+	return (n < minBound || n > maxBound);
 }
 
-static void printFloat(double literal_conversion, int literalType) {
-	// TODO
+static void printChar(double literalConverted, int literalType) {
+	char c;
+
+	if (literalType == CHAR || isAscii(literalConverted)) {
+		c = static_cast<unsigned char>(literalConverted);
+		if (std::isprint(c))
+			std::cout << "char: '" << c << "'\n";
+		else 
+			std::cout << "char: Non displayble\n";
+		return ; 
+	}
+	std::cout << "char: impossible\n";
+}
+
+static void printInt(double literalConverted, int literalType) {
+	if (literalType != PSEUDO_LITERAL && 
+		!isOutOfBounds<double, int, int>(literalConverted, INT_MIN, INT_MAX)) {
+			std::cout << "int: " << static_cast<int>(literalConverted) << std::endl;
+			return ;
+	}
+	std::cout << "int: impossible\n";
+}
+
+static bool hasDecimalValues(double d) {
+	return ((d - static_cast<int>(d)) > 0);
+}
+
+template <typename Type>
+static bool isPosInf(Type d) {
+	return (d == std::numeric_limits<Type>::infinity());
+}
+
+static void printFloat(double literalConverted, int literalType) {
+	char suffix = 'f';
+
+	if (literalType == PSEUDO_LITERAL) {
+		std::cout << "float: "
+				  << (isPosInf<float>(literalConverted) ? "+" : "" )
+				  << literalConverted 
+				  << suffix 
+				  << std::endl;
+		return ;
+	}
+	if (!isOutOfBounds(literalConverted, __FLT_MIN__, __FLT_MAX__)) {
+		std::cout << "float: " << literalConverted 
+							   << (!hasDecimalValues(literalConverted) ? ".0" : "")
+							   << suffix
+							   << std::endl;
+		return ;
+	}
+	std::cout << "float: impossible\n";
 }
 
 static void printDouble(double literal_conversion, int literalType) {
 	// TODO
+	return ;
 }
 
 void ScalarConverter::convert(const std::string & literal) {
     double 	literalConversion;
 	int		literalType;
 
+	std::cout << "converting: " << literal << "\n";
+
 	literalType = getLiteralType(literal);
-	if (!literalType) {
+	if (literalType == -1) {
 		std::cerr << "Invalid literal. Impossible conversion.\n";
 		return ;
 	}
@@ -95,4 +149,28 @@ void ScalarConverter::convert(const std::string & literal) {
 	printInt(literalConversion, literalType);
 	printFloat(literalConversion, literalType);
 	printDouble(literalConversion, literalType);
+}
+
+int main() {
+	ScalarConverter::convert("42");
+	std::cout << "\n";
+	ScalarConverter::convert("nan");
+	std::cout << "\n";
+	ScalarConverter::convert("+inf");
+	std::cout << "\n";
+	ScalarConverter::convert("-inf");
+	std::cout << "\n";
+	ScalarConverter::convert("+inff");
+	std::cout << "\n";
+	ScalarConverter::convert("-inff");
+	std::cout << "\n";
+	ScalarConverter::convert("nanf");
+	std::cout << "\n";
+	ScalarConverter::convert("nann");
+	std::cout << "\n";
+	ScalarConverter::convert("nanff");
+	std::cout << "\n";
+	ScalarConverter::convert("+infff");
+	std::cout << "\n";
+	ScalarConverter::convert("++inff");
 }
