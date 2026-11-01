@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <typeinfo>
 
 /**
  * @brief Select randomly a number from 1 to 3 and return an allocated Base inherited class: A, B or C.
@@ -54,21 +55,21 @@ void identify(Base &p) {
 		std::cout << "A\n";
 		return ;
 	}
-	catch (std::runtime_error & e) {}
+	catch (std::bad_cast & e) {}
 
 	try {
 		dynamic_cast<B&>(p);
 		std::cout << "B\n";
 		return ;
 	}
-	catch (std::runtime_error & e) {}
+	catch (std::bad_cast & e) {}
 	
 	try {
 		dynamic_cast<C&>(p);
 		std::cout << "C\n";
 		return ;
 	}
-	catch (std::runtime_error & e) {
+	catch (std::bad_cast & e) {
 	}
 	std::cout << "Invalid Base inherited class\n";
 }

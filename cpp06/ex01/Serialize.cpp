@@ -1,4 +1,5 @@
 #include "Serialize.hpp"
+#include <cstddef>
 
 
 Serialize::Serialize() {}
@@ -45,6 +46,6 @@ uintptr_t Serialize::serialize(Data * ptr) {
  */
 Data *Serialize::deserialize(uintptr_t raw) {
 	if (!raw)
-		return 0;
+		return NULL;
 	return reinterpret_cast<Data *>(raw);
 }

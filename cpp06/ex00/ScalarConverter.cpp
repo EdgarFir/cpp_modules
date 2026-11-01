@@ -1,8 +1,10 @@
 #include "ScalarConverter.hpp"
-#include <stdlib.h>
-#include <limits.h>
+#include <cstdlib>
+#include <climits>
 #include <iomanip>
 #include <cctype>
+#include <iostream>
+#include <string>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -35,11 +37,10 @@ static int isNan(double d) {
 }
 
 /**
- * @brief Ensure d is not NaN, and is a valid char following ASCII table decimal values. In that case is impossible to scale. 
- * If d is valid to scale print char scalar type if is printable, else prints "Non displayble".
+ * @brief Ensure d is not NaN, and is a valid char following ASCII table decimal values.
  * 
  * @param d Number to scale and print.
-*/
+ */
 static void printChar(double d) {
 	if (isNan(d) || d < 0 || d > 127) {
 		std::cout << "char: impossible\n";
@@ -53,12 +54,10 @@ static void printChar(double d) {
 }
 
 /**
- * @brief Ensure d is not NaN, overflow or underflow int type or it's impossible to scale to int. 
- * In that case print impossible
- * If d is valid to scale, print int scalar type.
+ * @brief Ensure d is not NaN, overflow or underflow int type.
  * 
  * @param d Number to scale and print.
-*/
+ */
 static void printInt(double d) {
 	if (isNan(d) || d > INT_MAX || d < INT_MIN)
 		std::cout << "int: impossible\n";
@@ -70,7 +69,7 @@ static void printInt(double d) {
  * @brief Print float scalar type with 1 decimal.
  * 
  * @param d Number scale and print. 
-*/
+ */
 static void printFloat(double d) {
 	std::cout << "float: "
 			  << std::fixed << std::setprecision(1)
@@ -81,7 +80,7 @@ static void printFloat(double d) {
  * @brief Print double scalar type with 1 decimal.
  * 
  * @param d Number scale and print. 
-*/
+ */
 static void printDouble(double d) {
 	std::cout << "double: " 
 			  << std::fixed << std::setprecision(1)
@@ -94,7 +93,7 @@ static void printDouble(double d) {
  * @param str String to check.
  * 
  * @return True if str is a char literal, else False.
-*/
+ */
 static bool isChar(const std::string & str) {
 	return (str.size() == 1 && !std::isdigit(static_cast<unsigned char>(str[0])));
 }
@@ -105,22 +104,46 @@ void ScalarConverter::convert(const std::string & str) {
 	size_t	str_size;
 
 	str_size = str.size();
-	if (str_size != 0) {
-		if (isChar(str)) {
-			d = static_cast<double>(str[0]);
-		}
-		else {
-			d = std::strtod(str.c_str(), &end_ptr);
-			if (!(*end_ptr == '\0' || (end_ptr == &str[str_size - 1] && *end_ptr == 'f'))) {
-				printImpossible();
-				return ;
-			}
-		}
-		printChar(d);
-		printInt(d);
-		printFloat(d);
-		printDouble(d);
+	if (str_size == 0) {
+		printImpossible();
 		return ;
 	}
-	printImpossible();
+
+	// Tratamento de Pseudo-Literais exigido pelo subject
+	if (str == "nan" || str == "nanf") {
+		std::cout << "char: impossible\n"
+				  << "int: impossible\n"
+				  << "float: nanf\n"
+				  << "double: nan\n";
+		return ;
+	}
+	if (str == "-inf" || str == "-inff") {
+		std::cout << "char: impossible\n"
+				  << "int: impossible\n"
+				  << "float: -inff\n"
+				  << "double: -inf\n";
+		return ;
+	}
+	if (str == "+inf" || str == "inf" || str == "+inff" || str == "inff") {
+		std::cout << "char: impossible\n"
+				  << "int: impossible\n"
+				  << "float: inff\n"
+				  << "double: inf\n";
+		return ;
+	}
+
+	if (isChar(str)) {
+		d = static_cast<double>(str[0]);
+	}
+	else {
+		d = std::strtod(str.c_str(), &end_ptr);
+		if (!(*end_ptr == '\0' || (end_ptr == &str[str_size - 1] && *end_ptr == 'f'))) {
+			printImpossible();
+			return ;
+		}
+	}
+	printChar(d);
+	printInt(d);
+	printFloat(d);
+	printDouble(d);
 }
