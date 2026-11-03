@@ -1,6 +1,6 @@
-NAME = ex00
+NAME = btc
 
-SRCS = main.cpp
+SRCS = main.cpp BitcoinExchange/src/BitcoinExchange.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -10,7 +10,7 @@ FLAGS = -g -Wall -Werror -Wextra -pedantic
 
 RM = rm -rf
 
-all: $(NAME)
+all: $(NAME) clean
 
 .cpp.o:
 	$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
