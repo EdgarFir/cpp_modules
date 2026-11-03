@@ -27,6 +27,11 @@ class Array
             DeepCopyArray(other.array_, other.size_);
         }
 
+        ~Array()
+        {
+            DeleteArray();
+        }
+
         Array& operator=(const Array<T>& other)
         {
             if (this != other)
@@ -59,9 +64,9 @@ class Array
             throw std::out_of_range("Index out of bounds");
         }
 
-        ~Array()
+        const size_t size() const
         {
-            DeleteArray();
+            return size_;
         }
     private:
         size_t size_;
