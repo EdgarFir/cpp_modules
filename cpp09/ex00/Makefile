@@ -1,22 +1,22 @@
 NAME = ex00
 
-SRCS = main.cpp
+SRCS = main.cpp src/BitcoinExchange.cpp src/BitcoinExchangeFileReader.cpp src/BitcoinExchangeValidator.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 CC= c++
 
-CPPFLAGS = std=c++98 -Wall -Werror -Wextra -pedantic
+CPPFLAGS = -std=c++98 -Wall -Werror -Wextra -pedantic
 
 RM = rm -rf
 
 all: $(NAME)
 
 .cpp.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+	$(CC) $(CPPFLAGS) -c $< -o $(<:.cpp=.o)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
